@@ -22,5 +22,6 @@ phases:
 #       - echo Pushing the Docker images...
 #       - docker push 691781425578.dkr.ecr.ap-south-1.amazonaws.com/loco-images:latest
 #       - docker push 691781425578.dkr.ecr.ap-south-1.amazonaws.com/loco-images:latest
-      - docker push $REPOSITORY_URI:latest
+   
+   #- docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
