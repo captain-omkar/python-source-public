@@ -1,0 +1,12 @@
+phases:
+  install:
+    commands:
+      - pip install -r requirements.txt
+  pre_build:
+    commands:
+      - docker build -t loco-image .
+      - docker images
+  build:
+    commands:
+      - python app.py
+
