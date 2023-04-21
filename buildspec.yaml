@@ -6,15 +6,15 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 691781425578.dkr.ecr.ap-south-1.amazonaws.com
-      - REPOSITORY_URI=691781425578.dkr.ecr.ap-south-1.amazonaws.com/loco-images
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 286414711246.dkr.ecr.ap-south-1.amazonaws.com/loco
+      - REPOSITORY_URI=286414711246.dkr.ecr.ap-south-1.amazonaws.com/loco
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t 691781425578.dkr.ecr.ap-south-1.amazonaws.com/loco-images .
+      - docker build -t $REPOSITORY_URI .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
