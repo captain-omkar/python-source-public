@@ -54,7 +54,7 @@ phases:
       - kubectl patch --local -f python-manifest.yaml -p '{"spec":{"template":{"spec":{"containers":[{"name":"python-demo","image":"'$REPOSITORY_URI:$IMAGE_TAG'"}]}}}}' -o yaml > new-deployment.yaml
       - mv new-deployment.yaml python-manifest.yaml
       - cat python-manifest.yaml
-#       - kubectl apply -f ngi
+      - kubectl apply -f python-manifest.yaml
     
 #       - export AWS_ACCESS_KEY_ID=$ACCESS_KEY 
 #       - echo $AWS_ACCESS_KEY_ID 
