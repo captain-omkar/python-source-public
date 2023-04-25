@@ -49,7 +49,7 @@ phases:
 #       - export AWS_SECRET_ACCESS_KEY=$SECRET_KEY 
 #       - echo $AWS_SECRET_ACCESS_KEY 
 #       - aws sts get-caller-identity  
-      - aws eks update-kubeconfig --region ap-south-1 --name demo2 
+      - aws eks update-kubeconfig --name demo2 
 #       - cat ~/.kube/config 
       
       
