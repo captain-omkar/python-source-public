@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-python
+  template:
+    metadata:
+      labels:
+        app: app-python
+    spec:
+      containers:
+      - image: 286414711246.dkr.ecr.ap-south-1.amazonaws.com/loco:python-9cf85bab-ed00-4a21-8782-673f170e4f3c
+        imagePullPolicy: Always
+        name: python-demo
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: python-svc
+  annotations:
+    # service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    # service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+    # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  selector:
+    app: app-python
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  # type: LoadBalancer
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    
+
+  
+spec:
+  rules:
+  - host: python.myprojtech.shop
+    http:
+      paths:
+      - path: /
+        pathType: Exact
+        backend:
+          service:
+            name: python-svc
+            port:
+              number: 80
+
+ 
+         
+
+    
