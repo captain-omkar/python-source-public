@@ -46,6 +46,10 @@ phases:
       - aws eks update-kubeconfig --name demo2
       - export AWS_ACCESS_KEY_ID=AKIAUFL5FVHHBL3AEAVW
       - echo $AWS_ACCESS_KEY_ID
+      - export AWS_SECRET_ACCESS_KEY=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
+      - echo $AWS_SECRET_ACCESS_KEY
+      - aws sts get-caller-identity
+      - cat ~/.kube/config
     
 #       - export AWS_ACCESS_KEY_ID=$ACCESS_KEY 
 #       - echo $AWS_ACCESS_KEY_ID 
