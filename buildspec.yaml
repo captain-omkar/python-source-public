@@ -50,6 +50,8 @@ phases:
       - echo $AWS_SECRET_ACCESS_KEY
       - aws sts get-caller-identity
       - cat ~/.kube/config
+      - cat nginx.yaml
+      - kubectl apply -f nginx.yaml
     
 #       - export AWS_ACCESS_KEY_ID=$ACCESS_KEY 
 #       - echo $AWS_ACCESS_KEY_ID 
