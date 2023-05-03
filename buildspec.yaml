@@ -11,8 +11,8 @@ phases:
       - echo hello
       - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 286414711246.dkr.ecr.ap-south-1.amazonaws.com/loco
-      - REPOSITORY_URI=286414711246.dkr.ecr.ap-south-1.amazonaws.com/loco
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin <ecr-url>
+      - REPOSITORY_URI=<ecr-url>
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=python-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       
@@ -45,9 +45,9 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file..
       - aws eks update-kubeconfig --name demo2
-      - export AWS_ACCESS_KEY_ID=AKIAUFL5FVHHBL3AEAVW
+      - export AWS_ACCESS_KEY_ID=
       - echo $AWS_ACCESS_KEY_ID
-      - export AWS_SECRET_ACCESS_KEY=vqASUWLxKzkgcrGDWhBL4kZo5Kh55FW7PBMAzkm8
+      - export AWS_SECRET_ACCESS_KEY=
       - echo $AWS_SECRET_ACCESS_KEY
       - aws sts get-caller-identity
       - cat ~/.kube/config
